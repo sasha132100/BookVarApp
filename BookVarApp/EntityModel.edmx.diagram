@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b8557e42fb4341f192db5ff591791e9c" Name="Diagram1">
+        <EntityTypeShape EntityType="Book_StoreModel.Basket" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Book_StoreModel.Client" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Book_StoreModel.Orders" Width="1.5" PointX="6" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Book_StoreModel.Product" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Book_StoreModel.Shop" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Book_StoreModel.ShopAddressLink" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Book_StoreModel.Users" Width="1.5" PointX="1.5" PointY="12.75" IsExpanded="true" />
+        <AssociationConnector Association="Book_StoreModel.FK__Basket__ClientID__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="Book_StoreModel.FK__Basket__ProductI__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="Book_StoreModel.FK__Client__UserID__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="Book_StoreModel.FK__Orders__ClientID__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="Book_StoreModel.FK__Orders__ProductI__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="Book_StoreModel.FK__Orders__ShopID__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="Book_StoreModel.FK__ShopAddre__Produ__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="Book_StoreModel.FK__ShopAddre__ShopI__66603565" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

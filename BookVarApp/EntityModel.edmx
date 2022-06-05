@@ -1,0 +1,589 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Book_StoreModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Basket">
+          <Key>
+            <PropertyRef Name="BasketID" />
+          </Key>
+          <Property Name="BasketID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="BasketProductCount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="ClientFIO" Type="nvarchar" MaxLength="60" />
+          <Property Name="ClientNumber" Type="nvarchar" MaxLength="11" />
+          <Property Name="ClientPreferredAddress" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="ShopID" Type="int" />
+          <Property Name="OrderProductCount" Type="int" Nullable="false" />
+          <Property Name="OrderTotalPrice" Type="int" Nullable="false" />
+          <Property Name="OrderStatus" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="OrderData" Type="date" Nullable="false" />
+          <Property Name="OrderPaymentMethod" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ProductGenre" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProductAuthor" Type="nvarchar" MaxLength="90" Nullable="false" />
+          <Property Name="ProductPublisher" Type="nvarchar" MaxLength="90" Nullable="false" />
+          <Property Name="ProductDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProductCount" Type="int" Nullable="false" />
+          <Property Name="ProductPrice" Type="int" Nullable="false" />
+          <Property Name="ProductImage" Type="image" />
+        </EntityType>
+        <EntityType Name="Shop">
+          <Key>
+            <PropertyRef Name="ShopID" />
+          </Key>
+          <Property Name="ShopID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShopAddress" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShopAddressLink">
+          <Key>
+            <PropertyRef Name="ShopAddressLinkID" />
+          </Key>
+          <Property Name="ShopAddressLinkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShopID" Type="int" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="ShopAddressLinkAvailability" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserLogin" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="UserRole" Type="nvarchar" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Basket__ClientID__6D0D32F4">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Basket__ProductI__6E01572D">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Client__UserID__6A30C649">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ClientID__70DDC3D8">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ProductI__71D1E811">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ShopID__72C60C4A">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShopAddre__Produ__6754599E">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ShopAddressLink" Type="Self.ShopAddressLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ShopAddressLink">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShopAddre__ShopI__66603565">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ShopAddressLink" Type="Self.ShopAddressLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="ShopAddressLink">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Book_StoreModelContainer">
+          <EntitySet Name="Basket" EntityType="Self.Basket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShopAddressLink" EntityType="Self.ShopAddressLink" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Basket__ClientID__6D0D32F4" Association="Self.FK__Basket__ClientID__6D0D32F4">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Basket__ProductI__6E01572D" Association="Self.FK__Basket__ProductI__6E01572D">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Client__UserID__6A30C649" Association="Self.FK__Client__UserID__6A30C649">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ClientID__70DDC3D8" Association="Self.FK__Orders__ClientID__70DDC3D8">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ProductI__71D1E811" Association="Self.FK__Orders__ProductI__71D1E811">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ShopID__72C60C4A" Association="Self.FK__Orders__ShopID__72C60C4A">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShopAddre__Produ__6754599E" Association="Self.FK__ShopAddre__Produ__6754599E">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ShopAddressLink" EntitySet="ShopAddressLink" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShopAddre__ShopI__66603565" Association="Self.FK__ShopAddre__ShopI__66603565">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="ShopAddressLink" EntitySet="ShopAddressLink" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Book_StoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Basket">
+          <Key>
+            <PropertyRef Name="BasketID" />
+          </Key>
+          <Property Name="BasketID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="BasketProductCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Basket__ClientID__6D0D32F4" FromRole="Basket" ToRole="Client" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Basket__ProductI__6E01572D" FromRole="Basket" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="ClientFIO" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="ClientNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="ClientPreferredAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="true" />
+          <NavigationProperty Name="Basket" Relationship="Self.FK__Basket__ClientID__6D0D32F4" FromRole="Client" ToRole="Basket" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Client__UserID__6A30C649" FromRole="Client" ToRole="Users" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ClientID__70DDC3D8" FromRole="Client" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="ShopID" Type="Int32" />
+          <Property Name="OrderProductCount" Type="Int32" Nullable="false" />
+          <Property Name="OrderTotalPrice" Type="Int32" Nullable="false" />
+          <Property Name="OrderStatus" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OrderData" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="OrderPaymentMethod" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Orders__ClientID__70DDC3D8" FromRole="Orders" ToRole="Client" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Orders__ProductI__71D1E811" FromRole="Orders" ToRole="Product" />
+          <NavigationProperty Name="Shop" Relationship="Self.FK__Orders__ShopID__72C60C4A" FromRole="Orders" ToRole="Shop" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductGenre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductAuthor" Type="String" MaxLength="90" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductPublisher" Type="String" MaxLength="90" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductCount" Type="Int32" Nullable="false" />
+          <Property Name="ProductPrice" Type="Int32" Nullable="false" />
+          <Property Name="ProductImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Basket" Relationship="Self.FK__Basket__ProductI__6E01572D" FromRole="Product" ToRole="Basket" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ProductI__71D1E811" FromRole="Product" ToRole="Orders" />
+          <NavigationProperty Name="ShopAddressLink" Relationship="Self.FK__ShopAddre__Produ__6754599E" FromRole="Product" ToRole="ShopAddressLink" />
+        </EntityType>
+        <EntityType Name="Shop">
+          <Key>
+            <PropertyRef Name="ShopID" />
+          </Key>
+          <Property Name="ShopID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShopAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ShopID__72C60C4A" FromRole="Shop" ToRole="Orders" />
+          <NavigationProperty Name="ShopAddressLink" Relationship="Self.FK__ShopAddre__ShopI__66603565" FromRole="Shop" ToRole="ShopAddressLink" />
+        </EntityType>
+        <EntityType Name="ShopAddressLink">
+          <Key>
+            <PropertyRef Name="ShopAddressLinkID" />
+          </Key>
+          <Property Name="ShopAddressLinkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShopID" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="ShopAddressLinkAvailability" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__ShopAddre__Produ__6754599E" FromRole="ShopAddressLink" ToRole="Product" />
+          <NavigationProperty Name="Shop" Relationship="Self.FK__ShopAddre__ShopI__66603565" FromRole="ShopAddressLink" ToRole="Shop" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserLogin" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserRole" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Client__UserID__6A30C649" FromRole="Users" ToRole="Client" />
+        </EntityType>
+        <Association Name="FK__Basket__ClientID__6D0D32F4">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Basket__ProductI__6E01572D">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Basket">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Client__UserID__6A30C649">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ClientID__70DDC3D8">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ProductI__71D1E811">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ShopID__72C60C4A">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShopAddre__Produ__6754599E">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ShopAddressLink" Type="Self.ShopAddressLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ShopAddressLink">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShopAddre__ShopI__66603565">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ShopAddressLink" Type="Self.ShopAddressLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="ShopAddressLink">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Book_StoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Basket" EntityType="Self.Basket" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Shop" EntityType="Self.Shop" />
+          <EntitySet Name="ShopAddressLink" EntityType="Self.ShopAddressLink" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__Basket__ClientID__6D0D32F4" Association="Self.FK__Basket__ClientID__6D0D32F4">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Basket__ProductI__6E01572D" Association="Self.FK__Basket__ProductI__6E01572D">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Basket" EntitySet="Basket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Client__UserID__6A30C649" Association="Self.FK__Client__UserID__6A30C649">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ClientID__70DDC3D8" Association="Self.FK__Orders__ClientID__70DDC3D8">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ProductI__71D1E811" Association="Self.FK__Orders__ProductI__71D1E811">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ShopID__72C60C4A" Association="Self.FK__Orders__ShopID__72C60C4A">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShopAddre__Produ__6754599E" Association="Self.FK__ShopAddre__Produ__6754599E">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ShopAddressLink" EntitySet="ShopAddressLink" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShopAddre__ShopI__66603565" Association="Self.FK__ShopAddre__ShopI__66603565">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="ShopAddressLink" EntitySet="ShopAddressLink" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Book_StoreModelContainer" CdmEntityContainer="Book_StoreEntities">
+          <EntitySetMapping Name="Basket">
+            <EntityTypeMapping TypeName="Book_StoreModel.Basket">
+              <MappingFragment StoreEntitySet="Basket">
+                <ScalarProperty Name="BasketID" ColumnName="BasketID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="BasketProductCount" ColumnName="BasketProductCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="Book_StoreModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ClientFIO" ColumnName="ClientFIO" />
+                <ScalarProperty Name="ClientNumber" ColumnName="ClientNumber" />
+                <ScalarProperty Name="ClientPreferredAddress" ColumnName="ClientPreferredAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="Book_StoreModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="OrderProductCount" ColumnName="OrderProductCount" />
+                <ScalarProperty Name="OrderTotalPrice" ColumnName="OrderTotalPrice" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="OrderData" ColumnName="OrderData" />
+                <ScalarProperty Name="OrderPaymentMethod" ColumnName="OrderPaymentMethod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="Book_StoreModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductGenre" ColumnName="ProductGenre" />
+                <ScalarProperty Name="ProductAuthor" ColumnName="ProductAuthor" />
+                <ScalarProperty Name="ProductPublisher" ColumnName="ProductPublisher" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="ProductCount" ColumnName="ProductCount" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shop">
+            <EntityTypeMapping TypeName="Book_StoreModel.Shop">
+              <MappingFragment StoreEntitySet="Shop">
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="ShopAddress" ColumnName="ShopAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShopAddressLink">
+            <EntityTypeMapping TypeName="Book_StoreModel.ShopAddressLink">
+              <MappingFragment StoreEntitySet="ShopAddressLink">
+                <ScalarProperty Name="ShopAddressLinkID" ColumnName="ShopAddressLinkID" />
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ShopAddressLinkAvailability" ColumnName="ShopAddressLinkAvailability" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Book_StoreModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

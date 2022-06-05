@@ -1,0 +1,85 @@
+﻿<Window x:Class="BookVarApp.Windows.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookVarApp.Windows"
+        mc:Ignorable="d"
+        Title="RegisterWindow" 
+        Height="500" Width="750">
+    <Window.Resources>
+        <Style x:Key="Lbl13" TargetType="Label">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="Roboto"/>
+        </Style>
+        <Style x:Key="LblLeft" TargetType="Label">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="23"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="Margin" Value="12,0,0,0"/>
+        </Style>
+        <Style x:Key="RoundedPasswordStyle" TargetType="{x:Type PasswordBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border CornerRadius="5" BorderThickness="1" Background="White" BorderBrush="#ABADB3">
+                            <PasswordBox BorderThickness="0" Background="Transparent" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <StackPanel.Background>
+            <ImageBrush ImageSource="/BookVarApp;component/Images/LoginBack.jpg" Opacity="0.9"/>
+        </StackPanel.Background>
+        <Button Height="30" Width="75" Click="ButtonBack_Click" FontFamily="Roboto" FontSize="12" FontWeight="Bold" Content="Назад" Background="White" HorizontalAlignment="Left" Margin="12,12,0,0">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label Content="BookVar" FontFamily="Rockwell" FontSize="36" HorizontalAlignment="Center" Foreground="#ffbd00" FontWeight="Bold" Margin="0,30,0,0"/>
+        <Border Width="300" Height="Auto" Background="#ffbd00" CornerRadius="10" Margin="0,10,0,0">
+            <StackPanel >
+                <Label Content="Регистрация" Style="{StaticResource Lbl13}" Margin="0,5,0,0"/>
+                <Label Content="Логин" Style="{StaticResource LblLeft}" Width="Auto" Height="Auto"/>
+                <TextBox x:Name="txtLogin" Width="Auto" Margin="15,0,15,0" Height="25" VerticalContentAlignment="Center" Background="White">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Label Content="Email" Style="{StaticResource LblLeft}" Width="Auto" Height="Auto"/>
+                <TextBox x:Name="txtEmail" Width="Auto" Margin="15,0,15,0" Height="25" VerticalContentAlignment="Center" Background="White">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Label Content="Пароль" Style="{StaticResource LblLeft}" Width="Auto" Height="Auto"/>
+                <Border CornerRadius="5" BorderThickness="1" Width="Auto" Margin="15,0,15,0" Height="25" Background="White" BorderBrush="#ABADB3">
+                    <PasswordBox x:Name="txtPassword" BorderThickness="0" Background="Transparent" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
+                </Border>
+                <Label Content="Подтвердите пароль" Style="{StaticResource LblLeft}" Width="Auto" Height="Auto"/>
+                <Border CornerRadius="5" BorderThickness="1" Width="Auto" Margin="15,0,15,0" Height="25" Background="White" BorderBrush="#ABADB3">
+                    <PasswordBox x:Name="txtPasswordConfirm" BorderThickness="0" Background="Transparent" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
+                </Border>
+                <Button Content="Зарегистрироваться" Width="171" Height="36" FontWeight="Bold" Background="White" Margin="0,17,0,14" BorderThickness="0" Click="ButtonReg_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</Window>

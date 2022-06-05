@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookVarApp", "BookVarApp\BookVarApp.csproj", "{AED314BE-193D-43A5-BF3E-B73233397BF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookVarAppTests", "BookVarAppTests\BookVarAppTests.csproj", "{37B406EC-65FC-464A-8187-F5655698B42B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AED314BE-193D-43A5-BF3E-B73233397BF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AED314BE-193D-43A5-BF3E-B73233397BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AED314BE-193D-43A5-BF3E-B73233397BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AED314BE-193D-43A5-BF3E-B73233397BF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37B406EC-65FC-464A-8187-F5655698B42B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37B406EC-65FC-464A-8187-F5655698B42B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37B406EC-65FC-464A-8187-F5655698B42B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37B406EC-65FC-464A-8187-F5655698B42B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {91BEFAE8-DB11-4697-B3C1-397226DE953E}
+	EndGlobalSection
+EndGlobal
